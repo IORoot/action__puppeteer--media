@@ -46,7 +46,7 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 
 # Copy all scripts.
 COPY . ./
-COPY entrypoint.sh /usr/src/app/entrypoint.sh
+# COPY entrypoint.sh ./entrypoint.sh
 
 # Install all node dependencies
 # Add user so we don't need --no-sandbox.
@@ -59,4 +59,4 @@ RUN cd /usr/src/app \
 # EXPOSE 8080
 
 
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
