@@ -7,8 +7,8 @@ FROM node:buster-slim
 
 LABEL "com.github.actions.name"="Puppeteer with Media"
 LABEL "com.github.actions.description"="A GitHub Action / Docker image for Puppeteer, along with video handling"
-LABEL "com.github.actions.icon"="layout"
-LABEL "com.github.actions.color"="blue"
+LABEL "com.github.actions.icon"="circle"
+LABEL "com.github.actions.color"="green"
 
 LABEL "repository"="https://github.com/ioroot/action__puppeteer--video"
 LABEL "homepage"="https://github.com/ioroot/action__puppeteer--video"
