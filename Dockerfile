@@ -45,16 +45,13 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
         && chown -R pptruser:pptruser /home/pptruser 
 
 # Copy all scripts.
-COPY . ./
+COPY . /usr/src/app/
 COPY entrypoint.sh /usr/src/app/entrypoint.sh
 
 # Install all node dependencies
 # Add user so we don't need --no-sandbox.
 # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
-RUN cd /usr/src/app \ 
-        && npm install \
-        && npm install -g \
-        && chown -R pptruser:pptruser /usr/src
+RUN chown -R pptruser:pptruser /usr/src
 
 # Now run the entrypoint shell script which runs the command under "args" in the github action.
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
