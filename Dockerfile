@@ -38,29 +38,23 @@ RUN wget --quiet https://raw.githubusercontent.com/vishnubob/wait-for-it/master/
 # Add an alias
 RUN echo 'alias ll="ls -la"' >> ~/.bashrc
 
+WORKDIR /usr/src/app
 
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
         && mkdir -p /home/pptruser \
         && chown -R pptruser:pptruser /home/pptruser 
 
 # Copy all scripts.
-COPY . /
-COPY entrypoint.sh /entrypoint.sh
+COPY . ./
+COPY entrypoint.sh /usr/src/app/entrypoint.sh
 
 # Install all node dependencies
 # Add user so we don't need --no-sandbox.
 # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
-#
-# Repo should have a package.json that includes puppeteer-core and as a dependency
-# "dependencies": {
-#       "puppeteer-core": "^5.4.1"
-#  },
-RUN cd / \ 
+RUN cd /usr/src/app \ 
         && npm install \
         && npm install -g \
-        && chown -R pptruser:pptruser /entrypoint.sh
-
-
+        && chown -R pptruser:pptruser /usr/src
 
 # Now run the entrypoint shell script which runs the command under "args" in the github action.
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
