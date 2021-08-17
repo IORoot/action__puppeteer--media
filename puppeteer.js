@@ -1,46 +1,15 @@
 var runner = (function () {
 
-    // ┌──────────────────────────────────────────────────────────┐
-    // │                                                          │
-    // │                       Requirements                       │
-    // │                                                          │
-    // └──────────────────────────────────────────────────────────┘
     const puppeteer = require('puppeteer-core');
-
-
-    // ┌──────────────────────────────────────────────────────────┐
-    // │                                                          │
-    // │                     Global Variables                     │
-    // │                                                          │
-    // └──────────────────────────────────────────────────────────┘
-    
-    let browser;
-
-    let page;
-
-
-
-    // ┌──────────────────────────────────────────────────────────┐
-    // │                                                          │
-    // │                    Puppeteer Settings                    │
-    // │                                                          │
-    // └──────────────────────────────────────────────────────────┘
-
     let puppeteer_settings = { 
         headless: true, 
         devtools: false,
         executablePath: "/usr/bin/google-chrome-stable",
         args: ['--no-sandbox']
     }
+    let browser;
+    let page;
 
-    // ┌─────────────────────────────────────────────────────────┐
-    // │                                                         │
-    // │                Update Puppeteer Settings                │
-    // │                                                         │
-    // └─────────────────────────────────────────────────────────┘
-    function publicSetPuppeteerSettings(settings){
-        puppeteer_settings = settings;
-    }
 
     // ┌──────────────────────────────────────────────────────────┐
     // │                                                          │
@@ -48,7 +17,6 @@ var runner = (function () {
     // │                                                          │
     // └──────────────────────────────────────────────────────────┘
     function publicRun(){
-
 
         (async () => {
 
@@ -65,9 +33,6 @@ var runner = (function () {
             } 
 
 
-
-
-
             /**
              * New Browser
              */
@@ -78,9 +43,6 @@ var runner = (function () {
                 console.log('Error creating browser : ' + err);
                 return;
             } 
-
-
-
 
 
             
@@ -96,9 +58,6 @@ var runner = (function () {
                 console.log('Error creating page : ' + err);
                 return;
             } 
-
-
-
 
 
             /**
@@ -118,41 +77,16 @@ var runner = (function () {
     }
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────────┐
-    // │                                                                             │
-    // │ Make these things public:                                                   │
-    // │                                                                             │
-    // │ 1. puppeteer_settings object So you can update and change the defaults.     │
-    // │                                                                             │
-    // │ 2. IG_post object to update the default post values.                        │
-    // │                                                                             │
-    // │ 3. user() method to set the facebook username to login with.                │
-    // │                                                                             │
-    // │ 4. pass() method to login with.                                             │
-    // │                                                                             │
-    // │ 5. run() method to kick everything off.                                     │
-    // │                                                                             │
-    // │ 6. cookiefile is the path to the json file to store all cookies.            │
-    // │                                                                             │
-    // └─────────────────────────────────────────────────────────────────────────────┘
-    return {
-        puppeteer_settings,     
+    // ┌──────────────────────────────────────────────────────────┐
+    // │                                                          │
+    // │                        Make Public                       │
+    // │                                                          │
+    // └──────────────────────────────────────────────────────────┘
+    return {    
         run: publicRun,
-        settings: publicSetPuppeteerSettings,
     };
 
 })();
-
-// ┌─────────────────────────────────────────────────────────┐
-// │                                                         │
-// │                Export the runner variable.              │
-// │        Use the require() function to import it.         │
-// │                                                         │
-// │ https://stackoverflow.com/questions/950087/how-do-i-inc │
-// │    lude-a-javascript-file-in-another-javascript-file    │
-// │                                                         │
-// └─────────────────────────────────────────────────────────┘
 module.exports = { runner };
-
 
 runner.run();

@@ -5,6 +5,15 @@
 
 FROM node:buster-slim
 
+LABEL "com.github.actions.name"="Puppeteer with Media"
+LABEL "com.github.actions.description"="A GitHub Action / Docker image for Puppeteer, along with video handling"
+LABEL "com.github.actions.icon"="layout"
+LABEL "com.github.actions.color"="blue"
+
+LABEL "repository"="https://github.com/ioroot/action__puppeteer--video"
+LABEL "homepage"="https://github.com/ioroot/action__puppeteer--video"
+LABEL "maintainer"="Andy Pearson"
+
 RUN apt-get update
 
 # Install VIM, WGET, GNUPG, ca-certificates, CHROME, wait-for-it.sh
@@ -48,4 +57,5 @@ RUN cd /usr/src/app \
 
 EXPOSE 8080
 
-CMD [ "node", "puppeteer.js" ]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
