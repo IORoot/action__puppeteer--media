@@ -29,6 +29,7 @@ var runner = (function () {
     let puppeteer_settings = { 
         headless: true, 
         devtools: false,
+        executablePath: "/usr/bin/google-chrome-stable",
         args: ['--no-sandbox']
     }
 
@@ -142,7 +143,6 @@ var runner = (function () {
 
 })();
 
-
 // ┌─────────────────────────────────────────────────────────┐
 // │                                                         │
 // │                Export the runner variable.              │
@@ -153,3 +153,6 @@ var runner = (function () {
 // │                                                         │
 // └─────────────────────────────────────────────────────────┘
 module.exports = { runner };
+
+
+runner.run();

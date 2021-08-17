@@ -48,4 +48,4 @@ RUN cd /usr/src/app \
 
 EXPOSE 8080
 
-CMD [ "node", "manual_run.js" ]
+CMD [ "node", "puppeteer.js" ]

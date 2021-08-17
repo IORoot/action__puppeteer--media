@@ -13,6 +13,6 @@
         "yargs": "^13.3.2"
     },
     "scripts": {
-        "start": "node manual_run.js"
+        "start": "node puppeteer.js"
     }
 }
