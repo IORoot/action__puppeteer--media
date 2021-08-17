@@ -1,4 +1,4 @@
-# Javascript / Puppeteer Runner
+# Javascript / Puppeteer Github Action
 
 This github action was born out of slight frustration that:
 
@@ -9,6 +9,134 @@ This github action was born out of slight frustration that:
 
 You can see a demonstration of this action in use at: 
 https://github.com/IORoot/puppeteer__runner--demo
+
+## How to get it to work?
+
+### New Repository & Package.json
+
+Create a new github repository and include a package.json file.
+
+```
+/package.json
+```
+
+In the dependencies, you will want to include 'puppeteer-core',
+
+```json
+{
+    "name": "prunner",
+    "version": "1.0.0",
+    "author": "Andy Pearson (https://ioroot.com)",
+    "description": "Allows you to run puppeteer scripts.",
+    "license": "MIT",
+    "main": "puppeteer.js",
+    "dependencies": {
+        "puppeteer-core": "^5.4.1"
+    }
+}
+```
+
+### Your puppeteer script.
+
+Next, you'll want to include your own script that will run puppeteer and do whatever
+it is you want it to do.
+
+```
+/myscript.js
+/package.json
+```
+
+This script will need to reference chrome in a specific location: `/usr/bin/google-chrome-stable`
+
+```js
+
+    const puppeteer = require('puppeteer-core');
+    browser = puppeteer.launch({ 
+        headless: true, 
+        devtools: false,
+        executablePath: "/usr/bin/google-chrome-stable",
+        args: ['--no-sandbox']
+    });
+
+```
+
+You should now be able to run your puppeteer steps in your script.
+
+
+
+### Github Action
+
+Lastly, to run the whole process, you need to create a github action workflow file.
+
+```
+/.github/workflows/run_action.yml
+/myscript.js
+/package.json
+```
+
+This workflow action will include the bare minimum of:
+
+```yaml
+name: Demo puppeteer script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+
+    # Copy contents of this repository into runner.
+    - uses: actions/checkout@master
+
+    # Run the "Args" as a command in the docker container
+    # created by this action. 'npm install' will run.
+    - name: Install
+      uses: IORoot/action__puppeteer--media@master
+      with:
+        args: npm install
+
+    # Run the "Args" as a command in the docker container
+    # created by this action. 'node myscript.js' will run
+    - name: Test Code
+      uses: IORoot/action__puppeteer--media@master
+      with:
+        args: node myscript.js
+
+```
+
+
+### package.json 'scripts'
+
+Instead of running the `node myscript.js` in the 'args', you could transfer the execution
+into the package.json like so:
+
+```json
+{
+    "name": "prunner",
+    "version": "1.0.0",
+    "author": "Andy Pearson (https://ioroot.com)",
+    "description": "Allows you to run puppeteer scripts.",
+    "license": "MIT",
+    "main": "puppeteer.js",
+    "dependencies": {
+        "puppeteer-core": "^5.4.1"
+    },
+    "scripts": {
+        "start": "node myscript.js"
+    }
+}
+```
+
+You could then run `npm run start` as the command in 'args'.
+
+```yaml
+    - name: Test Code
+      uses: IORoot/action__puppeteer--media@master
+      with:
+        args: npm run start
+```
 
 
 ## Note about Video Codecs in Chromium.
