@@ -5,7 +5,7 @@
 
 FROM node:buster-slim
 
-LABEL "com.github.actions.name"="Puppeteer with Media"
+LABEL "com.github.actions.name"="Puppeteer with Chrome Video Codecs"
 LABEL "com.github.actions.description"="A GitHub Action / Docker image for Puppeteer, along with video handling"
 LABEL "com.github.actions.icon"="circle"
 LABEL "com.github.actions.color"="green"
