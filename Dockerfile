@@ -55,7 +55,7 @@ RUN cd /usr/src/app \
         && npm install -g \
         && chown -R pptruser:pptruser /usr/src
 
-EXPOSE 8080
+# EXPOSE 8080
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
