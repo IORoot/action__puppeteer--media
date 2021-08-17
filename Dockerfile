@@ -59,4 +59,4 @@ RUN cd /usr/src/app \
 # EXPOSE 8080
 
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
