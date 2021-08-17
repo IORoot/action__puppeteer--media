@@ -56,7 +56,11 @@ RUN cd /usr/src/app \
         && npm install -g \
         && chown -R pptruser:pptruser /usr/src
 
-# EXPOSE 8080
+# Repo should have a package.json that includes puppeteer-core and as a dependency
+# "dependencies": {
+#         "puppeteer-core": "^5.4.1"
+#  },
+CMD ['npm','install']
 
-
+# Now run the entrypoint shell script which runs the command under "args" in the github action.
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
